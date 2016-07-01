@@ -1,0 +1,1 @@
+angular.module( 'PrometheusApp', [ 'ngMaterial', 'ngResource' ] );

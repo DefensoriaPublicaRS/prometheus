@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="/css/prometheus.css">
+</head>
+<body ng-app="PrometheusApp">
+
+<script src="./js/prometheus.js"></script>
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/angular-aria/angular-aria.js"></script>
+<script src="/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/bower_components/angular-material/angular-material.js"></script>
+<script src="/bower_components/angular-resource/angular-resource.js"></script>
+<script src="./App.js"></script>
+<script src="./js/services/Eureka.js"></script>
+<script src="./js/controllers/EurekaController.js"></script>
+
+<div layout="column" class="relative" layout-fill>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h3>Prometheus</h3>
+        </div>
+    </md-toolbar>
+    <md-content flex md-scroll-y ng-controller="EurekaController">
+        <ui-view layout="row" layout-fill layout-padding>
+            <md-card flex-gt-sm="90" flex-gt-md="80">
+                <md-card-content>
+                    <h2>Local</h2>
+                    <md-list flex>
+                        <md-item>
+                            <md-item-content layout="row" layout-align="start center" ng-repeat="app in appsLocal">
+                                <div >
+                                    <md-subheader class="md-no-sticky" ng-bind="app.name"></md-subheader>
+                                    <md-list-item flex ng-repeat="instance in app.instance">
+
+                                        <md-button ng-click="remove(instance)" class="md-raised md-warn">remover</md-button>
+                                        {{instance.instanceId}}
+
+                                    </md-list-item>
+                                    <br/>
+                                </div>
+                                <md-divider md-inset hide-sm ng-if="!$last"></md-divider>
+                                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                            </md-item-content>
+                        </md-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+
+            <md-card flex-gt-sm="90" flex-gt-md="80">
+                <md-card-content>
+                    <h2>Testes</h2>
+                    <md-list flex>
+                        <md-item>
+                            <md-item-content layout="row" layout-align="start center" ng-repeat="app in appsTeste">
+                                <div>
+                                    <md-subheader class="md-no-sticky" ng-bind="app.name"></md-subheader>
+                                    <md-list-item flex ng-repeat="instance in app.instance">
+
+                                        <md-button ng-click="add(instance,app)" class="md-raised md-primary">adicionar</md-button>
+                                        {{instance.instanceId}}
+
+                                    </md-list-item>
+                                    <br/>
+                                </div>
+                                <md-divider md-inset hide-sm ng-if="!$last"></md-divider>
+                                <md-divider hide-gt-sm ng-if="!$last"></md-divider>
+                            </md-item-content>
+                        </md-item>
+                    </md-list>
+                </md-card-content>
+            </md-card>
+        </ui-view>
+
+    </md-content>
+</div>
+
+</body>
+</html>
