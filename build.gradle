@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
 	ext {
 		springBootVersion = '1.3.5.RELEASE'
@@ -40,6 +42,16 @@ dependencyManagement {
 	}
 }
 
+task bowerInstall(type: Exec) {
+    workingDir './src/main/webapp'
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'bower.cmd', 'install'
+    } else {
+        commandLine 'bower', 'install'
+    }
+}
+
+build.dependsOn bowerInstall
 
 eclipse {
 	classpath {
