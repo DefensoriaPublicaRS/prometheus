@@ -42,16 +42,25 @@ dependencyManagement {
 	}
 }
 
-task bowerInstall(type: Exec) {
-    workingDir './src/main/webapp'
+task npmInstall(type: Exec) {
     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'bower.cmd', 'install'
+        commandLine 'npm.cmd', 'install'
     } else {
-        commandLine 'bower', 'install'
+        commandLine 'npm', 'install'
     }
 }
 
-build.dependsOn bowerInstall
+task bowerInstall(type: Exec) {
+    workingDir './src/main/webapp'
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/C', '..\\..\\..\\node_modules\\.bin\\bower.cmd', 'install'
+    } else {
+        commandLine '../../../node_modules/bower/bin/bower', 'install'
+    }
+}
+
+bowerInstall.dependsOn npmInstall
+processResources.dependsOn bowerInstall
 
 eclipse {
 	classpath {
