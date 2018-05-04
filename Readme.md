@@ -9,6 +9,8 @@ O objetivo é permitir o desenvolvimento local sem a necessidade de iniciar todo
 $ ./gradlew bootRun
 ```
 
+Acessar http://localhost:8585/prometheus.html
+
 ## Configuração
 
 Para alterar o endereço do Eureka do qual as instâncias serão copiadas, altere a propriedade `zuul.routes.eureka.url`.
